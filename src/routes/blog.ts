@@ -1,3 +1,156 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Blog:
+ *       type: object
+ *       required:
+ *         - title
+ *         - content
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the blog
+ *         title:
+ *           type: string
+ *           description: The title of the blog
+ *         content:
+ *           type: string
+ *           description: The content of the blog
+ *         createdAt:
+ *           type: string
+ *           format: date
+ *           description: The date the blog was created
+ * 
+ * tags:
+ *   name: Blogs
+ *   description: The blogs managing API
+ * 
+ * /:
+ *   get:
+ *     summary: Get all blogs
+ *     tags: [Blogs]
+ *     responses:
+ *       200:
+ *         description: The list of blogs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Blog'
+ * 
+ * /{id}:
+ *   get:
+ *     summary: Get a blog by ID
+ *     tags: [Blogs]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the blog
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The blog
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blog'
+ * 
+ * /create:
+ *   post:
+ *     summary: Create a new blog
+ *     tags: [Blogs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Blog'
+ *     responses:
+ *       201:
+ *         description: The created blog
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blog'
+ * 
+ * /{id}/view:
+ *   put:
+ *     summary: Add a view to a blog
+ *     tags: [Blogs]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the blog
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The updated blog
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blog'
+ * 
+ * /{id}/like:
+ *   put:
+ *     summary: Like a blog
+ *     tags: [Blogs]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the blog
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: The updated blog
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blog'
+ * 
+ * /{id}/edit:
+ *   put:
+ *     summary: Edit a blog
+ *     tags: [Blogs]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the blog
+ *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Blog'
+ *     responses:
+ *       200:
+ *         description: The updated blog
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blog'
+ * 
+ * /{id}/delete:
+ *   delete:
+ *     summary: Delete a blog
+ *     tags: [Blogs]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the blog
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Confirmation of deletion
+ */
+
 const express = require('express')
 import { Request, Response } from 'express';
 import { ParsedQs } from 'qs';
@@ -14,8 +167,8 @@ router.get('/:id', getBlogById);
 router.post('/create', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => createBlog(req, res));
 router.put('/:id/view', addViewToBlog);
 router.put('/:id/like', likeBlog);
-router.put('/:id', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => editBlog(req, res));
-router.delete('/:id', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => deleteBlog(req, res));
+router.put('/:id/edit', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => editBlog(req, res));
+router.delete('/:id/delete', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => deleteBlog(req, res));
 
 
 export default router;

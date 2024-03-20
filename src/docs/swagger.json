@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Blog API",
+    "description": "API documentation for the Blog"
+  },
+  "paths": {
+    "/blog": {
+      "get": {
+        "summary": "Get all blogs",
+        "responses": {
+          "200": {
+            "description": "A list of blogs"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new blog",
+        "responses": {
+          "201": {
+            "description": "The created blog"
+          }
+        }
+      }
+    },
+    "/blog/{id}": {
+      "get": {
+        "summary": "Get a blog by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the blog",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A blog"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a blog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the blog",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated blog"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a blog",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the blog",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation of deletion"
+          }
+        }
+      }
+    }
+  }
+}
