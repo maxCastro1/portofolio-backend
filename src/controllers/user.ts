@@ -23,7 +23,7 @@ export default class UserController {
         const newUser = new User({ email, password: hashedPassword });
         await newUser.save();
   
-        res.json(newUser);
+        res.status(200).json(newUser);
       } catch (err) {
         res.status(500).json({ message: 'Error in creating user', err });
       }

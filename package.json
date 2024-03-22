@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "SET NODE_ENV=test & jest",
     "start": "nodemon --exec ts-node src/index.ts",
-    "build": "tsc",
     "serve": "node dist/index.js"
   },
   "keywords": [],

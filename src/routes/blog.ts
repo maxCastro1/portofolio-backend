@@ -26,7 +26,7 @@
  *   name: Blogs
  *   description: The blogs managing API
  * 
- * /:
+ * /blog:
  *   get:
  *     summary: Get all blogs
  *     tags: [Blogs]
@@ -40,7 +40,7 @@
  *               items:
  *                 $ref: '#/components/schemas/Blog'
  * 
- * /{id}:
+ * /blog/{id}:
  *   get:
  *     summary: Get a blog by ID
  *     tags: [Blogs]
@@ -58,7 +58,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * /create:
+ * blog/create:
  *   post:
  *     summary: Create a new blog
  *     tags: [Blogs]
@@ -76,7 +76,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * /{id}/view:
+ * /blog/{id}/view:
  *   put:
  *     summary: Add a view to a blog
  *     tags: [Blogs]
@@ -94,7 +94,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * /{id}/like:
+ * /blog/{id}/like:
  *   put:
  *     summary: Like a blog
  *     tags: [Blogs]
@@ -112,7 +112,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * /{id}/edit:
+ * /blog/{id}/edit:
  *   put:
  *     summary: Edit a blog
  *     tags: [Blogs]
@@ -136,7 +136,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * /{id}/delete:
+ * /blog/{id}/delete:
  *   delete:
  *     summary: Delete a blog
  *     tags: [Blogs]
