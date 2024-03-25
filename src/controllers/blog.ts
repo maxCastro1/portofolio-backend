@@ -60,7 +60,7 @@ export default class blogController {
       blog.views += 1;
   
       const updatedBlog = await blog.save();
-      res.json(updatedBlog);
+      res.status(200).json(updatedBlog);
     } catch (err) {
       return res.status(500).json({err: err, message: 'Failed to add a view to the blog'});
     }

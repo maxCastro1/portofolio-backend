@@ -51,7 +51,7 @@ describe('GET /blog', () => {
         "authorName": "maxime"
       }
   
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTEwNzI5NiwiZXhwIjoxNzExMTE3Mjk2fQ.paWKekJ3fFTGB0xsZWo6d88RK96Of_9VvdhqNlUy0yU'; // replace with a valid token
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1Mzk1MywiZXhwIjoxNzExMzYzOTUzfQ.WD6ZhPXqOiRDZ_TjBjeFTKe2K1ikvDEIwmbEpyCpX7A'; // replace with a valid token
   
       const res = await request(app).post('/blog/create').set('Authorization', `${token}`).send(newBlog);
   
@@ -78,19 +78,28 @@ describe('GET /blog', () => {
   });
 
   
+  describe('Test the addViewToBlog path', () => {
+    test('It should respond with the updated blog for valid ID', async () => {
+      const blogId = '65f1de87ca1c020f59b7f00f'; // replace with a valid blog ID
+      const response = await request(app).post(`/blog/${blogId}/view`);
+  
+      expect(response.statusCode).toBe(200);
+      expect(response.body.views).toBeDefined();
+    });
+  
+    test('It should respond with 404 for non-existent blog', async () => {
+      const blogId = '65f1de87ca1c020f59b7f';
+      const response = await request(app).post(`/blog/${blogId}/view`);
+  
+      expect(response.statusCode).toBe(404);
+    });
+  
+  
+  });
+  
+  
 describe('POST /user/signup', () => {
-    //   it('should create a new user with valid email and password', async () => {
-    //     const newUser = {
-    //         "email":"test105@gmail.com",
-    //         "password":"1234"
-    //     };
-    
-    //     const res = await request(app).post('/user/signup').send(newUser);
-    
-      
-    //     expect(res.body).toHaveProperty('_id');
-    //     expect(res.body.email).toEqual(newUser.email);
-    //   });
+   
     
       it('should return 400 if email or password is missing', async () => {
         const newUser = {
@@ -102,19 +111,7 @@ describe('POST /user/signup', () => {
     
         expect(res.statusCode).toEqual(400);
       });
-    
-    //   it('should return 400 if user already exists', async () => {
-    
-    //     const existingUser = {
-    //         "email":"test105@gmail.com",
-    //         "password":"1234"
-    //     };
-    
-       
-    //     const res = await request(app).post('/user/signup').send(existingUser);
-    
-    //     expect(res.statusCode).toEqual(400);
-    //   });
+
     });
     describe('POST /user/signin', () => {
       it('should sign in a user with valid email and password', async () => {
@@ -217,7 +214,7 @@ describe('POST /comment', () => {
       const res = await request(app).delete(`/comment/${commentId}`);
   
       expect(res.statusCode).toEqual(401);
-    //   expect(res.body).toHaveProperty('message', 'Comment deleted successfully');
+    
     });
   
     it('should return 404 if comment not found', async () => {

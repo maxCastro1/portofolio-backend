@@ -30,7 +30,7 @@ const spacs = swaggerjsdoc({
         openapi: '3.0.0',
         servers: [
             {
-                url: `http://localhost:${port}`,
+                url: `https://portofolio-backend-lhcp.onrender.com`,
             },
         ],
         info: {

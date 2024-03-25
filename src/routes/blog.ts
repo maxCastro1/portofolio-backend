@@ -58,7 +58,7 @@
  *             schema:
  *               $ref: '#/components/schemas/Blog'
  * 
- * blog/create:
+ * /blog/create:
  *   post:
  *     summary: Create a new blog
  *     tags: [Blogs]
