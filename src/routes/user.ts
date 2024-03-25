@@ -1,6 +1,11 @@
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     ApiKeyAuth:          
+ *       type: apiKey
+ *       in: header
+ *       name: Authorization 
  *   schemas:
  *     User:
  *       type: object

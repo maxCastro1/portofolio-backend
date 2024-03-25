@@ -5,6 +5,7 @@ import User from '../models/user';
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   // Get token from header
   const token = req.header('Authorization');
+  console.log(token);
 
   // Check if not token
   if (!token) {

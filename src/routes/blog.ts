@@ -1,12 +1,11 @@
 /**
-/**
  * @swagger
  * components:
  *   securitySchemes:
- *     bearerAuth:            # arbitrary name for the security scheme
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+ *     ApiKeyAuth:          
+ *       type: apiKey
+ *       in: header
+ *       name: Authorization 
  *   schemas:
  *     Blog:
  *       type: object
@@ -27,7 +26,6 @@
  *           type: string
  *           format: date
  *           description: The date the blog was created
- * 
  * 
  * tags:
  *   name: Blogs
@@ -66,7 +64,10 @@
  *               $ref: '#/components/schemas/Blog'
  * 
  * /blog/create:
+ 
  *   post:
+ *     security:
+ *      - ApiKeyAuth: []
  *     summary: Create a new blog
  *     tags: [Blogs]
  *     requestBody:
@@ -121,6 +122,8 @@
  * 
  * /blog/{id}/edit:
  *   put:
+ *     security:
+ *      - ApiKeyAuth: []
  *     summary: Edit a blog
  *     tags: [Blogs]
  *     parameters:
@@ -145,6 +148,8 @@
  * 
  * /blog/{id}/delete:
  *   delete:
+ *     security:
+ *      - ApiKeyAuth: []
  *     summary: Delete a blog
  *     tags: [Blogs]
  *     parameters:
