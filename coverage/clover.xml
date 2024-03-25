@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711354159240" clover="3.2.0">
-  <project timestamp="1711354159240" name="All files">
-    <metrics statements="209" coveredstatements="136" conditionals="27" coveredconditionals="9" methods="24" coveredmethods="15" elements="260" coveredelements="160" complexity="0" loc="209" ncloc="209" packages="6" files="12" classes="12"/>
+<coverage generated="1711359446342" clover="3.2.0">
+  <project timestamp="1711359446342" name="All files">
+    <metrics statements="209" coveredstatements="172" conditionals="27" coveredconditionals="14" methods="24" coveredmethods="21" elements="260" coveredelements="207" complexity="0" loc="209" ncloc="209" packages="6" files="12" classes="12"/>
     <package name="src">
       <metrics statements="27" coveredstatements="25" conditionals="3" coveredconditionals="2" methods="4" coveredmethods="3"/>
       <file name="index.ts" path="C:\Users\sales\Desktop\x2\Andela\portofolio-backend\src\index.ts">
@@ -36,9 +36,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="123" coveredstatements="53" conditionals="22" coveredconditionals="6" methods="13" coveredmethods="8"/>
+      <metrics statements="123" coveredstatements="89" conditionals="22" coveredconditionals="11" methods="13" coveredmethods="12"/>
       <file name="blog.ts" path="C:\Users\sales\Desktop\x2\Andela\portofolio-backend\src\controllers\blog.ts">
-        <metrics statements="58" coveredstatements="15" conditionals="10" coveredconditionals="0" methods="7" coveredmethods="3"/>
+        <metrics statements="58" coveredstatements="51" conditionals="10" coveredconditionals="5" methods="7" coveredmethods="7"/>
         <line num="2" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -57,46 +57,46 @@
         <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="57" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="71" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="87" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="87" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="88" count="0" type="stmt"/>
-        <line num="91" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="94" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="97" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="100" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="103" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="110" count="0" type="stmt"/>
-        <line num="115" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="117" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="91" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="94" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="97" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="100" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="103" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="115" count="2" type="stmt"/>
+        <line num="116" count="2" type="stmt"/>
+        <line num="117" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="118" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="124" count="0" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
       </file>
       <file name="comments.ts" path="C:\Users\sales\Desktop\x2\Andela\portofolio-backend\src\controllers\comments.ts">
         <metrics statements="35" coveredstatements="19" conditionals="5" coveredconditionals="1" methods="3" coveredmethods="2"/>
@@ -186,16 +186,16 @@
         <metrics statements="13" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="10" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="5" count="9" type="stmt"/>
+        <line num="7" count="9" type="stmt"/>
+        <line num="10" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="cond" truecount="0" falsecount="1"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
       </file>
     </package>
@@ -222,9 +222,9 @@
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="32" coveredstatements="32" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <metrics statements="32" coveredstatements="32" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
       <file name="blog.ts" path="C:\Users\sales\Desktop\x2\Andela\portofolio-backend\src\routes\blog.ts">
-        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="154" count="1" type="stmt"/>
         <line num="157" count="1" type="stmt"/>
         <line num="158" count="1" type="stmt"/>
@@ -236,8 +236,8 @@
         <line num="167" count="1" type="stmt"/>
         <line num="168" count="1" type="stmt"/>
         <line num="169" count="1" type="stmt"/>
-        <line num="170" count="1" type="stmt"/>
-        <line num="171" count="1" type="stmt"/>
+        <line num="170" count="2" type="stmt"/>
+        <line num="171" count="2" type="stmt"/>
         <line num="174" count="1" type="stmt"/>
       </file>
       <file name="comment.ts" path="C:\Users\sales\Desktop\x2\Andela\portofolio-backend\src\routes\comment.ts">

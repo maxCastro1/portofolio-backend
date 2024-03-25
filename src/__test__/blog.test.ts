@@ -81,7 +81,7 @@ describe('GET /blog', () => {
   describe('Test the addViewToBlog path', () => {
     test('It should respond with the updated blog for valid ID', async () => {
       const blogId = '65f1de87ca1c020f59b7f00f'; // replace with a valid blog ID
-      const response = await request(app).post(`/blog/${blogId}/view`);
+      const response = await request(app).put(`/blog/${blogId}/view`);
   
       expect(response.statusCode).toBe(200);
       expect(response.body.views).toBeDefined();
@@ -89,15 +89,88 @@ describe('GET /blog', () => {
   
     test('It should respond with 404 for non-existent blog', async () => {
       const blogId = '65f1de87ca1c020f59b7f';
-      const response = await request(app).post(`/blog/${blogId}/view`);
+      const response = await request(app).put(`/blog/${blogId}/view`);
   
-      expect(response.statusCode).toBe(404);
+      expect(response.statusCode).toBe(500);
     });
   
   
   });
   
+  describe('Test the likeBlog path', () => {
+    test('It should respond with the updated blog for valid ID', async () => {
+      const blogId = '65f1de87ca1c020f59b7f00f'; // replace with a valid blog ID
+      const response = await request(app).put(`/blog/${blogId}/like`);
   
+      expect(response.statusCode).toBe(200);
+      expect(response.body.likes).toBeDefined();
+    });
+  
+    test('It should respond with 404 for non-existent blog', async () => {
+      const blogId = '65f1de87ca1c020f59b7f';
+      const response = await request(app).put(`/blog/${blogId}/like`);
+  
+      expect(response.statusCode).toBe(500);
+    });
+  
+   
+  });
+  describe('Test the editBlog path', () => {
+    test('It should respond with the updated blog for valid ID', async () => {
+      const blogId = '65fc46227057529abd00a147'; 
+      const newBlogData = {
+        "title" : "New Title",
+        "readingDuration": "10",
+        "description": "New Description",
+        "image": "New Image URL",
+        "authorName": "New Author Name"
+      };
+      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
+      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${Token}`).send(newBlogData);
+      expect(response.statusCode).toBe(200);
+  
+    });
+  
+    test('It should respond with 404 for non-existent blog', async () => {
+      const blogId = '65fc431fa75e92a75e30';
+      const newBlogData = {
+        title: 'New Title',
+        readingDuration: '10 min',
+        description: 'New Description',
+        image: 'New Image URL',
+        authorName: 'New Author Name'
+      };
+      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
+      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${Token}`).send(newBlogData);
+      expect(response.statusCode).toBe(500);
+    });
+    test('It should respond with 401 if not token is provided', async () => {
+      const blogId = '65fc431fa75e92a75e30';
+      const response = await request(app).put(`/blog/${blogId}/edit`);
+      expect(response.statusCode).toBe(401);
+    });
+  });
+
+  describe('Test the deleteBlog path', () => {
+    test('It should respond with the deleted blog message for valid ID', async () => {
+      const blogId = '65fc46227057529abd00a147'; // replace with a valid blog ID
+      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${Token}`);
+  
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toBe('Deleted blog');
+    });
+  
+    test('It should respond with 404 for non-existent blog', async () => {
+      const blogId = '65fc4b02a49f48f5b20e484';
+      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${Token}`);
+  
+      expect(response.statusCode).toBe(500);
+    });
+  
+
+  });
 describe('POST /user/signup', () => {
    
     

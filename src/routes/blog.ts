@@ -1,6 +1,12 @@
 /**
+/**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     bearerAuth:            # arbitrary name for the security scheme
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
  *   schemas:
  *     Blog:
  *       type: object
@@ -21,6 +27,7 @@
  *           type: string
  *           format: date
  *           description: The date the blog was created
+ * 
  * 
  * tags:
  *   name: Blogs

@@ -8,14 +8,15 @@ import commentRoutes from './routes/comment';
 
 import swaggerjsdoc from'swagger-jsdoc';
 import swaggerUi from'swagger-ui-express';
-// import swaggerUi from 'swagger-ui-dist';
+
 
 export const app = express();
-// const swaggerUiAssetPath = swaggerUi.getAbsoluteFSPath();
 
+const cors = require('cors');
 const port = 3001;
 const testPort = 3002;
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
