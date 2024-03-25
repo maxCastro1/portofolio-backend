@@ -1,6 +1,11 @@
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *     ApiKeyAuth:          
+ *       type: apiKey
+ *       in: header
+ *       name: Authorization 
  *   schemas:
  *     Comment:
  *       type: object
@@ -50,6 +55,8 @@
  *               items:
  *                 $ref: '#/components/schemas/Comment'
  *   delete:
+ *     security:
+ *      - ApiKeyAuth: []
  *     summary: Delete a comment
  *     tags: [Comments]
  *     parameters:
