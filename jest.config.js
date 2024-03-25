@@ -9,4 +9,11 @@ module.exports = {
   resetMocks: true,
   restoreMocks: true,
   clearMocks:true,
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}", // Include all JavaScript/JSX files in the src directory
+  ],
+  coveragePathIgnorePatterns: [
+    "/node_modules/", // Exclude the node_modules directory
+    "/__tests__/",     // Exclude the tests directory
+  ],
 };

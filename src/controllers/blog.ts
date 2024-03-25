@@ -60,7 +60,7 @@ export default class blogController {
       blog.views += 1;
   
       const updatedBlog = await blog.save();
-      res.json(updatedBlog);
+      res.status(200).json(updatedBlog);
     } catch (err) {
       return res.status(500).json({err: err, message: 'Failed to add a view to the blog'});
     }
@@ -75,7 +75,7 @@ export default class blogController {
       blog.likes += 1;
   
       const updatedBlog = await blog.save();
-      res.json(updatedBlog);
+      res.status(200).json(updatedBlog);
     } catch (err) {
       return res.status(500).json({err: err, message: 'Failed to like the blog'});
     }
@@ -105,7 +105,7 @@ export default class blogController {
       }
   
       const updatedBlog = await blog.save();
-      res.json(updatedBlog);
+      res.status(200).json(updatedBlog);
     } catch (err) {
       return res.status(500).json({err: err, message: 'Failed to edit the blog'});
     }
@@ -119,7 +119,7 @@ export default class blogController {
       }
       
       await Blog.findByIdAndDelete(req.params.id);
-      res.json({ message: 'Deleted blog' });
+      res.status(200).json({ message: 'Deleted blog' });
     } catch (err) {
       return res.status(500).json({err: err, message: 'Failed to delete the blog'});
     }

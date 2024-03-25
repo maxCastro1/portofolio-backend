@@ -16,14 +16,22 @@ export default class UserController {
         if (user) {
           return res.status(400).json({ message: 'This user already exists' });
         }
-        // Hash the password
+    
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
   
         const newUser = new User({ email, password: hashedPassword });
         await newUser.save();
-  
-        res.status(200).json(newUser);
+          
+         
+    const userToReturn = {
+      _id: newUser._id,
+      email: newUser.email,
+      
+    };
+
+
+        res.status(200).json(userToReturn);
       } catch (err) {
         res.status(500).json({ message: 'Error in creating user', err });
       }
@@ -59,7 +67,14 @@ export default class UserController {
           },
           (err: Error | null, token: string | undefined) => {
             if (err) throw err;
-            res.json({ message: 'User signed in successfully', token, user });
+
+            const userToReturn = {
+              _id: user._id,
+              email: user.email,
+              
+            };
+            
+            res.status(200).json({ message: 'User signed in successfully', token, userToReturn });
           }
         );
       } catch (err) {
