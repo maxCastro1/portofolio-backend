@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "strict": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "declarations.d.ts"],
   "exclude": ["node_modules"]
