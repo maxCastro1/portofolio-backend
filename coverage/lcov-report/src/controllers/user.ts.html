@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.29% </span>
+                <span class="strong">60.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/31</span>
+                <span class='fraction'>20/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.33% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/30</span>
+                <span class='fraction'>20/32</span>
             </div>
         
             
@@ -199,7 +199,22 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -223,6 +238,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,6 +283,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,14 +383,22 @@ export default class UserController {
 <span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (user) {</span>
 <span class="cstat-no" title="statement not covered" >          return res.status(400).json({ message: 'This user already exists' });</span>
         }
-        // Hash the password
+    
         const saltRounds = <span class="cstat-no" title="statement not covered" >10;</span>
         const hashedPassword = <span class="cstat-no" title="statement not covered" >await bcrypt.hash(password, saltRounds);</span>
   
         const newUser = <span class="cstat-no" title="statement not covered" >new User({ email, password: hashedPassword });</span>
 <span class="cstat-no" title="statement not covered" >        await newUser.save();</span>
-  
-<span class="cstat-no" title="statement not covered" >        res.status(200).json(newUser);</span>
+          
+         
+    const userToReturn = <span class="cstat-no" title="statement not covered" >{</span>
+      _id: newUser._id,
+      email: newUser.email,
+      
+    };
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        res.status(200).json(userToReturn);</span>
       } catch (err) {
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ message: 'Error in creating user', err });</span>
       }
@@ -396,7 +434,14 @@ export default class UserController {
           },
           (err: Error | null, token: string | undefined) =&gt; {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
-            res.json({ message: 'User signed in successfully', token, user });
+&nbsp;
+            const userToReturn = {
+              _id: user._id,
+              email: user.email,
+              
+            };
+            
+            res.status(200).json({ message: 'User signed in successfully', token, userToReturn });
           }
         );
       } catch (err) {
@@ -478,7 +523,7 @@ export default class UserController {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-25T09:37:26.312Z
+                at 2024-03-26T11:21:15.771Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
