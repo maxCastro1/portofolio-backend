@@ -3,10 +3,47 @@ import request from 'supertest';
 import app from "../index"
 
 let server:any;
+let token:string;
+let lastBlogId:string;
 
-beforeAll(() => {
-  server = app.listen(3002);
+beforeAll(async () => {
+  try {
+    server = app.listen(3002);
+
+    // Replace these with your actual user credentials
+    const body = {
+      "email": "admin@gmail.com",
+      "password": "1234"
+    };
+
+    // Send a POST request to the /signin endpoint
+    const res = await request(app)
+      .post('/user/signin')
+      .send(body);
+
+
+
+    // If the sign-in was successful, res.body should contain your token
+    if (res.body && res.body.token) {
+      token = res.body.token;
+    } else {
+      throw new Error('Sign-in failed');
+    }
+
+    const blogRes = await request(app)
+    .get('/blog')
+
+    if (blogRes.body && blogRes.body.length > 0) {
+      lastBlogId = blogRes.body[blogRes.body.length - 1]._id;
+    } else {
+      throw new Error('No blog posts found');
+    }
+
+  } catch (error:any) {
+    console.error(`Error in beforeAll: ${error.message}`);
+  }
 });
+
 
 afterAll(done => {
   server.close(done);
@@ -51,7 +88,7 @@ describe('GET /blog', () => {
         "authorName": "maxime"
       }
   
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1Mzk1MywiZXhwIjoxNzExMzYzOTUzfQ.WD6ZhPXqOiRDZ_TjBjeFTKe2K1ikvDEIwmbEpyCpX7A'; // replace with a valid token
+      // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1Mzk1MywiZXhwIjoxNzExMzYzOTUzfQ.WD6ZhPXqOiRDZ_TjBjeFTKe2K1ikvDEIwmbEpyCpX7A'; // replace with a valid token
   
       const res = await request(app).post('/blog/create').set('Authorization', `${token}`).send(newBlog);
   
@@ -117,7 +154,8 @@ describe('GET /blog', () => {
   });
   describe('Test the editBlog path', () => {
     test('It should respond with the updated blog for valid ID', async () => {
-      const blogId = '65fc46227057529abd00a147'; 
+ 
+      const blogId = '65fc44e7b5bff12cdafcc0cd'; 
       const newBlogData = {
         "title" : "New Title",
         "readingDuration": "10",
@@ -125,8 +163,8 @@ describe('GET /blog', () => {
         "image": "New Image URL",
         "authorName": "New Author Name"
       };
-      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
-      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${Token}`).send(newBlogData);
+      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
+      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${token}`).send(newBlogData);
       expect(response.statusCode).toBe(200);
   
     });
@@ -140,8 +178,8 @@ describe('GET /blog', () => {
         image: 'New Image URL',
         authorName: 'New Author Name'
       };
-      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
-      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${Token}`).send(newBlogData);
+      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
+      const response = await request(app).put(`/blog/${blogId}/edit`).set('Authorization', `${token}`).send(newBlogData);
       expect(response.statusCode).toBe(500);
     });
     test('It should respond with 401 if not token is provided', async () => {
@@ -153,9 +191,9 @@ describe('GET /blog', () => {
 
   describe('Test the deleteBlog path', () => {
     test('It should respond with the deleted blog message for valid ID', async () => {
-      const blogId = '65fc46227057529abd00a147'; // replace with a valid blog ID
-      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
-      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${Token}`);
+      const blogId = lastBlogId; // replace with a valid blog ID
+      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${token}`);
   
       expect(response.statusCode).toBe(200);
       expect(response.body.message).toBe('Deleted blog');
@@ -163,8 +201,8 @@ describe('GET /blog', () => {
   
     test('It should respond with 404 for non-existent blog', async () => {
       const blogId = '65fc4b02a49f48f5b20e484';
-      const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
-      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${Token}`);
+      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${token}`);
   
       expect(response.statusCode).toBe(500);
     });
@@ -197,8 +235,8 @@ describe('POST /user/signup', () => {
     
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('token');
-        expect(res.body).toHaveProperty('user');
-        expect(res.body.user.email).toEqual(userCredentials.email);
+        expect(res.body).toHaveProperty('userToReturn');
+        expect(res.body.userToReturn.email).toEqual(userCredentials.email);
       });
     
       it('should return 404 if user not found', async () => {
