@@ -22,6 +22,7 @@ jobs:
       uses: codecov/codecov-action@v4.0.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./coverage/
         slug: maxCastro1/portofolio-backend
 
   deploy:
