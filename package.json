@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "SET NODE_ENV=test & jest --coverage"
+    "test": "SET NODE_ENV=test & jest --coverage",
     "start": "nodemon --exec ts-node src/index.ts",
     "serve": "node dist/index.js"
   },
