@@ -1,4 +1,4 @@
-# Portfolio API ![Codecov Badge]
+# Portfolio API ![Codecov](https://codecov.io/gh/maxCastro1/portofolio-backend/branch/master/badge.svg)
 
 This API provides functionalities for managing blog content and user authentication for your portfolio website. It allows you to:
 
