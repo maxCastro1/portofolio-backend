@@ -1,3 +1,5 @@
+!codecov
+
 This API provides functionalities for managing blog content and user authentication for your portfolio website. It allows you to:
 
 User Management:
