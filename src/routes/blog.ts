@@ -173,7 +173,7 @@ import blogController from '../controllers/blog';
 
 const blogControllers = new blogController();
 
-const { getAllBlogs,getBlogById, createBlog, addViewToBlog, likeBlog, editBlog, deleteBlog } = blogControllers
+const { getAllBlogs,getBlogById, createBlog, addViewToBlog, likeBlog, editBlog, deleteBlog,deleteBlogsExceptFirstFive } = blogControllers
 router.get('/', getAllBlogs);
 router.get('/:id', getBlogById);
 router.post('/create', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => createBlog(req, res));
@@ -181,6 +181,7 @@ router.put('/:id/view', addViewToBlog);
 router.put('/:id/like', likeBlog);
 router.put('/:id/edit', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => editBlog(req, res));
 router.delete('/:id/delete', authMiddleware, (req: Request<Record<string, string>, any, any, ParsedQs>, res: Response) => deleteBlog(req, res));
+// router.delete('/reset', deleteBlogsExceptFirstFive);
 
 
 export default router;

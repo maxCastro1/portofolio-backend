@@ -7,6 +7,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   const token = req.header('Authorization');
 
 
+
   // Check if not token
   if (!token) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
@@ -25,6 +26,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     // If user exists and token is valid, proceed to the route handler
     next();
   } catch (err) {
+
     res.status(401).json({ msg: 'Token is not valid' });
   }
 };

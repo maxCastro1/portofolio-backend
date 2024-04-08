@@ -44,7 +44,7 @@ export default class blogController {
   
       const savedBlog = await blog.save();
   
-      res.json(savedBlog);
+      res.status(200).json(savedBlog);
     } catch (err) {
       res.status(500).json({err: err, message: 'Error in creating blog'});
     }
@@ -87,6 +87,7 @@ export default class blogController {
       if (blog == null) {
         return res.status(404).json({ message: 'Cannot find blog' });
       }
+
   
       if (req.body.title != null) {
         blog.title = req.body.title;
@@ -124,6 +125,27 @@ export default class blogController {
       return res.status(500).json({err: err, message: 'Failed to delete the blog'});
     }
   };
+  async deleteBlogsExceptFirstFive(req: Request, res: Response) {
+    try {
+        // Fetch all blogs sorted by creation date in descending order
+        const blogs = await Blog.find().sort({ createdAt: -1 });
+
+        // If there are more than five blogs
+        if (blogs.length > 5) {
+            // Get the IDs of the blogs to delete
+            const blogsToDelete = blogs.slice(5).map(blog => blog._id);
+
+            // Delete the blogs
+            await Blog.deleteMany({ _id: { $in: blogsToDelete } });
+
+            res.status(200).json({ message: 'Deleted blogs' });
+        } else {
+            res.status(200).json({ message: 'Less than or equal to five blogs - no blogs deleted' });
+        }
+    } catch (err) {
+        return res.status(500).json({ err: err, message: 'Failed to delete the blogs' });
+    }
+};
 }
 
 // {

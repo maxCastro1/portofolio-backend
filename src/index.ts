@@ -14,7 +14,7 @@ export const app = express();
 
 const cors = require('cors');
 const port = 3001;
-const testPort = 3002;
+
 app.use(express.json());
 app.use(cors());
 
@@ -60,14 +60,4 @@ const start = async () => {
     }
 }
 start()
-// const init = async () => {
-//     try{
-//         await connectDB(process.env.MONGO_URL ||'')
-//     }
-//     catch (error){
-//          console.log(error)
-//     }
-// }
-
-// export { init };
 export default app;

@@ -5,7 +5,8 @@ import app from "../index"
 let server:any;
 let token:string;
 let lastBlogId:string;
-
+let validBlogId:string;
+let updatBlogs:string;
 beforeAll(async () => {
   try {
     server = app.listen(3002);
@@ -32,7 +33,8 @@ beforeAll(async () => {
 
     const blogRes = await request(app)
     .get('/blog')
-
+    validBlogId = blogRes.body[0]._id;
+    updatBlogs = blogRes.body[2]._id;
     if (blogRes.body && blogRes.body.length > 0) {
       lastBlogId = blogRes.body[blogRes.body.length - 1]._id;
     } else {
@@ -42,7 +44,7 @@ beforeAll(async () => {
   } catch (error:any) {
     console.error(`Error in beforeAll: ${error.message}`);
   }
-});
+}, 30000);
 
 
 afterAll(done => {
@@ -63,7 +65,7 @@ describe('GET /blog', () => {
 
   describe('GET /blog/:id', () => {
     it('should fetch a blog by id', async () => {
-      const blogId = '65f02b2db3bf75be3f8c1cb1'; 
+      const blogId = validBlogId; 
       const res = await request(app).get(`/blog/${blogId}`);
   
       expect(res.statusCode).toEqual(200);
@@ -87,9 +89,6 @@ describe('GET /blog', () => {
         "image": "https://example.com/my-image.jpg",
         "authorName": "maxime"
       }
-  
-      // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1Mzk1MywiZXhwIjoxNzExMzYzOTUzfQ.WD6ZhPXqOiRDZ_TjBjeFTKe2K1ikvDEIwmbEpyCpX7A'; // replace with a valid token
-  
       const res = await request(app).post('/blog/create').set('Authorization', `${token}`).send(newBlog);
   
       expect(res.statusCode).toEqual(200);
@@ -117,7 +116,7 @@ describe('GET /blog', () => {
   
   describe('Test the addViewToBlog path', () => {
     test('It should respond with the updated blog for valid ID', async () => {
-      const blogId = '65f1de87ca1c020f59b7f00f'; // replace with a valid blog ID
+      const blogId = validBlogId; // replace with a valid blog ID
       const response = await request(app).put(`/blog/${blogId}/view`);
   
       expect(response.statusCode).toBe(200);
@@ -136,7 +135,7 @@ describe('GET /blog', () => {
   
   describe('Test the likeBlog path', () => {
     test('It should respond with the updated blog for valid ID', async () => {
-      const blogId = '65f1de87ca1c020f59b7f00f'; // replace with a valid blog ID
+      const blogId = validBlogId; // replace with a valid blog ID
       const response = await request(app).put(`/blog/${blogId}/like`);
   
       expect(response.statusCode).toBe(200);
@@ -155,12 +154,12 @@ describe('GET /blog', () => {
   describe('Test the editBlog path', () => {
     test('It should respond with the updated blog for valid ID', async () => {
  
-      const blogId = '65fc44e7b5bff12cdafcc0cd'; 
+      const blogId = updatBlogs; 
       const newBlogData = {
         "title" : "New Title",
         "readingDuration": "10",
         "description": "New Description",
-        "image": "New Image URL",
+        "image": "https://plus.unsplash.com/premium_photo-1687807265053-1d899ddb7580?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmFja2dyb3VuJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D",
         "authorName": "New Author Name"
       };
       // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; 
@@ -192,7 +191,7 @@ describe('GET /blog', () => {
   describe('Test the deleteBlog path', () => {
     test('It should respond with the deleted blog message for valid ID', async () => {
       const blogId = lastBlogId; // replace with a valid blog ID
-      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      
       const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${token}`);
   
       expect(response.statusCode).toBe(200);
@@ -201,7 +200,7 @@ describe('GET /blog', () => {
   
     test('It should respond with 404 for non-existent blog', async () => {
       const blogId = '65fc4b02a49f48f5b20e484';
-      // const Token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmNDQzYjQwMzc3Nzc5Mzk5ZDE0MmVlIn0sImlhdCI6MTcxMTM1ODA4NSwiZXhwIjoxNzExMzY4MDg1fQ.j-sQtGd2vO9uR_3qmF4PfV3I4MZKXOjRdMFi7aRgmhg'; // replace with a valid token
+      
       const response = await request(app).delete(`/blog/${blogId}/delete`).set('Authorization', `${token}`);
   
       expect(response.statusCode).toBe(500);
@@ -265,7 +264,7 @@ describe('POST /user/signup', () => {
     describe('POST /comment', () => {
   it('should add a comment to a blog with valid blogId', async () => {
     const newComment = {
-      blogId: '65f02b2db3bf75be3f8c1cb1',
+      blogId: validBlogId,
       authorName: 'Test Author',
       content: 'This is a test comment.'
     };
@@ -293,7 +292,7 @@ describe('POST /user/signup', () => {
 describe('POST /comment', () => {
     it('should add a comment to a blog with valid blogId', async () => {
       const newComment = {
-        blogId: '65f1de87ca1c020f59b7f00f', 
+        blogId: validBlogId, 
         authorName: 'Test Author',
         content: 'This is a test comment.'
       };
@@ -338,7 +337,7 @@ describe('POST /comment', () => {
   });
   describe('GET /comment/:id', () => {
     it('should fetch comments for a blog with valid id', async () => {
-      const blogId = '65f1de87ca1c020f59b7f00f'; 
+      const blogId = validBlogId; 
   
       const res = await request(app).get(`/comment/${blogId}`);
   
@@ -353,4 +352,22 @@ describe('POST /comment', () => {
   
       expect(res.statusCode).toEqual(404);
     });
+  });
+  describe('POST /user/', () => {
+    it('should respond with 400 status if name, email or message is not provided', async () => {
+      const res = await request(app)
+        .post('/user/')
+        .send({
+          name: '',
+          email: '',
+          message: ''
+        });
+  
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toHaveProperty('message', 'Please provide name, email and message');
+    });
+
+
+
+  
   });

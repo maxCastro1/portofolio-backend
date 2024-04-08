@@ -77,10 +77,12 @@ const router = express.Router()
 import UserController from '../controllers/user'; 
 
 const userController = new UserController();
-const {signIn,signUp } = userController
+const {signIn,signUp,sendEmail } = userController
 
+router.post('/', sendEmail);
 router.post('/signup',signUp );
 router.post('/signin', signIn);
+
 
 // router.post('/signup', signUp);
 // router.post('/signin', signIn);
